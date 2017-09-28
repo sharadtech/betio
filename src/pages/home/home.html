@@ -1,15 +1,18 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank SHARAD
+      Welcome {{user.name}}
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button ion-button color="dark" (click)="doFbLogout()">Logout</button>
-  The world is your oyster.
+  <button *ngIf="user.loginType == 'facebook'" ion-button color="dark" (click)="doFbLogout()">Facebook Logout</button>
+  <button *ngIf="user.loginType == 'mobileApp'" ion-button color="dark" (click)="doMobileAppLogout()">Logout</button>
+  <br/>
+  <img *ngIf="user.picture != null" src="{{user.picture}}" />
+  <br/>
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+    <ion-icon ios="ios-contact" md="md-contact"> </ion-icon> {{user.email}}
   </p>
 </ion-content>
