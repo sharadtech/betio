@@ -19,7 +19,6 @@ export class LoginPage {
 
   FB_APP_ID: number = 245380678984446;
   LOGIN_URL: string = 'http://localhost:9999/v1/authenticate/user';
-  loadingObject: Loading;
 
   loginForm:any ={
     email:null,
@@ -37,14 +36,14 @@ export class LoginPage {
   ) {
     console.log("Class :: LoginPage :: constructor.");
     this.fb.browserInit(this.FB_APP_ID,"v2.8");
-    this.loadingObject = loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
   }
 
   doFacebookLogin(){
-    this.loadingObject.present();
+    let loadingObject: Loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    loadingObject.present();
     console.log("Class :: LoginPage :: doFacebookLogin().");
     let permissions = new Array<string>();
     let nav = this.navCtrl;
@@ -71,9 +70,8 @@ export class LoginPage {
               email: user.email,
               picture: user.picture,
               loginType: 'facebook'
-            })
-            .then(function(){
-              nav.setRoot(HomePage);
+            }).then(function(){
+              nav.setRoot(HomePage, user);
             }, function(error){
               console.log("Error occurred at setting data in NativeStorage.");
               console.log(error);
@@ -87,8 +85,12 @@ export class LoginPage {
   signIn(){
     console.log("Class :: LoginPage :: signIn() :: email = "+this.loginForm.email);
     console.log("Class :: LoginPage :: signIn() :: password = "+this.loginForm.password);
+    let loadingObject: Loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
     if (this.loginForm.email!=null && this.loginForm.password!=null){
-      this.loadingObject.present();
+      loadingObject.present();
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
       headers.append('Accept', 'application/json');
@@ -101,28 +103,40 @@ export class LoginPage {
         .subscribe(
           function(data){
             console.log("Class :: LoginPage :: this.http.post().success :", data.json());
-            let user:any = data.json();
-            env.nativeStorage.setItem('userData',
-            {
-              name: user.name,
-              email: user.email,
-              picture: user.picture,
-              loginType: 'mobileApp'
-            }).then(function(){
-              console.log("Class :: LoginPage :: signIn() :: navCtrl has been called to set HomePage as root page.");
-              env.navCtrl.setRoot(HomePage);
-            }, function(error){
-              console.log("Class :: LoginPage :: signIn() :: Error occurred at setting data in NativeStorage after login.");
-              console.log(error);
-            });
-
-            env.loadingObject.dismiss();
-            return data;
+            let responseFromApi = data.json();
+            if (responseFromApi.status == 200){
+              let user:any = responseFromApi.data;
+              env.nativeStorage.setItem('userData',
+              {
+                name: user.name,
+                email: user.email,
+                picture: user.picture,
+                loginType: 'mobileApp'
+              }).then(function(){
+                console.log("Class :: LoginPage :: signIn() :: navCtrl has been called to set HomePage as root page.");
+                env.navCtrl.setRoot(HomePage);
+              }, function(error){
+                console.log("Class :: LoginPage :: signIn() :: Error occurred at setting data in NativeStorage after login.");
+                console.log(error);
+              });
+            } else {
+              let alert = env.alerCtrl.create({
+                title: 'Error',
+                message: 'Please enter valid credentials!',
+                buttons: ['Try again']
+              });
+              alert.present()
+            }
           },
           function(error){
-            console.log("Class :: LoginPage :: this.http.post().success :", error);
-            env.loadingObject.dismiss();
-            return Observable.throw(error.json().error || 'Server error');
+            console.log("Class :: LoginPage :: this.http.post().error :", error);
+            loadingObject.dismiss();
+            let alert = env.alerCtrl.create({
+              title: 'Error',
+              message: 'Please enter valid credentials!',
+              buttons: ['Try again']
+            });
+            alert.present()
           });
     } else {
       let alert = this.alerCtrl.create({

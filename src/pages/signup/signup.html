@@ -1,0 +1,67 @@
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>BetTo</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content center text-center>
+  <ion-grid class="absolute-center">
+    <ion-row padding-vertical center>
+      <ion-col>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item>
+                <ion-label stacked>First Name</ion-label>
+                <ion-input type="text" [(ngModel)]="signupForm.firstname"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Last Name</ion-label>
+                <ion-input type="text" [(ngModel)]="signupForm.lastname"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Email</ion-label>
+                <ion-input type="text" [(ngModel)]="signupForm.email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Password</ion-label>
+                <ion-input type="password" [(ngModel)]="signupForm.password"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Confirm Password</ion-label>
+                <ion-input type="password" [(ngModel)]="signupForm.confirmPassword"></ion-input>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-right>
+            <button ion-button color="primary" (click)="signUp()">Submit</button>
+          </ion-col>
+          <ion-col text-left>
+            <button ion-button color="primary" (click)="signIn()">Cancel</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-center>
+            <h3>---- OR ----</h3>
+          </ion-col>
+        </ion-row>
+        <ion-row text-center>
+          <ion-col>
+            <button ion-button (click)="doFacebookLogin()"><ion-icon name="logo-facebook"></ion-icon></button>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="doFacebookLogin()"><ion-icon name="logo-twitter"></ion-icon></button>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="doFacebookLogin()"><ion-icon name="logo-google"></ion-icon></button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

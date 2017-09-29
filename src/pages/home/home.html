@@ -1,18 +1,18 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Welcome {{user.name}}
+      Welcome
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button *ngIf="user.loginType == 'facebook'" ion-button color="dark" (click)="doFbLogout()">Facebook Logout</button>
-  <button *ngIf="user.loginType == 'mobileApp'" ion-button color="dark" (click)="doMobileAppLogout()">Logout</button>
+  <button *ngIf="userReady && user.loginType == 'facebook'" ion-button color="dark" (click)="doFbLogout()">Facebook Logout</button>
+  <button *ngIf="userReady && user.loginType == 'mobileApp'" ion-button color="dark" (click)="doMobileAppLogout()">Logout</button>
   <br/>
-  <img *ngIf="user.picture != null" src="{{user.picture}}" />
+  <img *ngIf="userReady && user.picture != null" src="{{user.picture}}" />
   <br/>
   <p>
-    <ion-icon ios="ios-contact" md="md-contact"> </ion-icon> {{user.email}}
+    <ion-icon ios="ios-contact" md="md-contact"> </ion-icon> {{user?.email}}
   </p>
 </ion-content>

@@ -20,6 +20,7 @@ export class HomePage {
     public navParams: NavParams
   ) {
     console.log("Class :: HomePage :: constructor.", navParams);
+
   }
 
   ionViewCanEnter(){
@@ -34,6 +35,7 @@ export class HomePage {
 	         picture: data.picture,
            loginType: data.loginType
 		     };
+         console.log("Class :: HomePage :: ionViewCanEnter() => env.user : ",env.user);
 				env.userReady = true;
 		}, function(error){
       console.log("Class :: HomePage :: Error in fetching date from NativeStorage");
@@ -42,7 +44,7 @@ export class HomePage {
 	}
 
   ionViewDidLoad() {
-    console.log("Class :: HomePage :: ionViewDidLoad().");
+    console.log("Class :: HomePage :: ionViewDidLoad() :: user : ", this.user);
   }
 
   doFbLogout(){
