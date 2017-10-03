@@ -8,6 +8,7 @@
 
 
 <ion-content center text-center>
+  <!-- <div style="position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; z-index: 1000; " ng-hide="showFields" class="ng-hide"></div> -->
   <ion-grid class="absolute-center">
     <ion-row padding-vertical center>
       <ion-col>
@@ -16,7 +17,7 @@
             <ion-list>
               <ion-item>
                 <ion-label stacked>First Name</ion-label>
-                <ion-input type="text" [(ngModel)]="signupForm.firstname"></ion-input>
+                <ion-input type="text" [(ngModel)]="signupForm.firstname" autofocus></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label stacked>Last Name</ion-label>
@@ -43,22 +44,6 @@
           </ion-col>
           <ion-col text-left>
             <button ion-button color="primary" (click)="signIn()">Cancel</button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col text-center>
-            <h3>---- OR ----</h3>
-          </ion-col>
-        </ion-row>
-        <ion-row text-center>
-          <ion-col>
-            <button ion-button (click)="doFacebookLogin()"><ion-icon name="logo-facebook"></ion-icon></button>
-          </ion-col>
-          <ion-col>
-            <button ion-button (click)="doFacebookLogin()"><ion-icon name="logo-twitter"></ion-icon></button>
-          </ion-col>
-          <ion-col>
-            <button ion-button (click)="doFacebookLogin()"><ion-icon name="logo-google"></ion-icon></button>
           </ion-col>
         </ion-row>
       </ion-col>

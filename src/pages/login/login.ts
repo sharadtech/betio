@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { HomePage } from '../home/home';
+import { SignupPage } from '../signup/signup';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Facebook } from '@ionic-native/facebook';
 import { LoadingController, Loading, AlertController } from 'ionic-angular';
@@ -79,6 +80,7 @@ export class LoginPage {
           })
       }, function(error){
         console.log("Class :: LoginPage :: doFacebookLogin() :: fb.login().error method",error);
+        loadingObject.dismiss();
       })
   }
 
@@ -146,8 +148,11 @@ export class LoginPage {
       });
       alert.present()
     }
+  }
 
-
+  signUp(){
+    console.log("Class :: LoginPage :: signUp()");
+    this.navCtrl.setRoot(SignupPage);
   }
 
   ionViewDidLoad() {
